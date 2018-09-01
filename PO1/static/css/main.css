@@ -1,0 +1,29 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(../images/background1.png);
+}
+
+.navbar, .jumbotron {
+    background-color: transparent;
+    background: transparent;
+    border-color: transparent;
+ }
+
+ .navbar li {
+    font-size: 15px;
+    font-family: 'Monoton', monospace;
+}
+
+.navbar li>a {
+    color: white !important;
+}
+
+.navbar li>a:hover {
+    color: wheat !important;
+}
