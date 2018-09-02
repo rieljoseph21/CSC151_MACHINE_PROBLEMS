@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Regexp
+from wtforms.validators import DataRequired, Regexp, ValidationError
 
 import csv
 
@@ -74,7 +74,10 @@ def delete_student():
 def add_student():
     form = StudentForm()
     if request.method == 'POST' and form.validate():
-        Student_Profile().add_student(form.firstname.data, form.lastname.data,
-                                      form.gender.data, form.id_number.data, form.course.data)
-        return redirect(url_for('students'))
+        if Student_Profile().student_exist(form.id_number.data) is False:
+            Student_Profile().add_student(form.firstname.data, form.lastname.data,
+                                          form.gender.data, form.id_number.data, form.course.data)
+            return redirect(url_for('students'))
+        else:
+            return render_template('aldy_exist.html')
     return render_template('add_student.html', form=form)

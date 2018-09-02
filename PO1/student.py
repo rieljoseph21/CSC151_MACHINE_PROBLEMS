@@ -29,3 +29,15 @@ class Student_Profile():
             for row in reader:
                 rows.append(row)
         return rows
+
+    def student_exist(self, id_number):
+        with open(self.filename) as f:
+            reader = csv.reader(f)
+            next(reader)
+            for row in reader:
+                if id_number == row[3]:
+                    return True
+        return False
+
+
+print(Student_Profile().student_exist('2014-3212'))

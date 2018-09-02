@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Student Already Exists{% endblock %}
+
+{% block page_content %}
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Error!</h4>
+        <p>Fail to add specific student as it already has a student with the same ID number.</p>
+        <hr>
+        <p class="mb-0">Please use a unique ID number and try adding the student again.</p>
+    </div>
+{% endblock %}
