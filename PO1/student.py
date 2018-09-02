@@ -21,3 +21,11 @@ class Student_Profile():
             for row in rows:
                 if row[3] != id_number:
                     f.write(','.join(row) + '\n')
+
+    def display_students(self):
+        rows = []
+        with open(self.filename, 'r') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                rows.append(row)
+        return rows
