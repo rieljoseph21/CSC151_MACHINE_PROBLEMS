@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired, Regexp
 
 import csv
 
+# Our model for making students
 from student import Student_Profile
 
 app = Flask(__name__)
@@ -16,10 +17,9 @@ app.config['SECRET_KEY'] = 'moymoy213'
 # Extension for using Bootstrap's stylsheet
 bootstrap = Bootstrap(app)
 
-# Form for adding studnet.
-
 
 class StudentForm(FlaskForm):
+    # Form for adding student.
     firstname = StringField('First Name ', validators=[
                             Regexp('^[A-Za-z ]{2,30}$', message="Enter a valid First name.")])
     lastname = StringField('Last Name ', validators=[
@@ -34,17 +34,20 @@ class StudentForm(FlaskForm):
 
 
 class DeleteForm(FlaskForm):
+    # Form for deleting student.
     id_number = StringField('ID Number: ', validators=[Regexp(
         '^[0-9]{4}\-[0-9]{4}$', message="Please enter a valid id number, Example: 2014-1716")])
     submit = SubmitField('Delete')
 
 
 @app.route('/')
+# Home Web Page
 def index():
     return render_template('index.html')
 
 
 @app.route('/students')
+# Students Web Page | Displaying Students
 def students():
     rows = []
     with open('database.csv') as f:
@@ -57,6 +60,7 @@ def students():
 
 
 @app.route('/delete_student', methods=['GET', 'POST'])
+# Page for Deleting student.
 def delete_student():
     form = DeleteForm()
     if request.method == 'POST' and form.validate():
@@ -66,6 +70,7 @@ def delete_student():
 
 
 @app.route('/add_student', methods=['GET', 'POST'])
+# Page for adding studnet
 def add_student():
     form = StudentForm()
     if request.method == 'POST' and form.validate():
