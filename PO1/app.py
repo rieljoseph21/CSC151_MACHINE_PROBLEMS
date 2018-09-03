@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, flash, request, session, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
@@ -78,7 +78,9 @@ def delete_student():
     form = DeleteForm()
     if request.method == 'POST' and form.validate():
         Student_Profile().delete_student(form.id_number.data)
-        return redirect(url_for('students'), code=307)
+        if Student_Profile().student_exist(form.id_number.data) is False:
+            flash('ID number does not exist in the Master List.')
+        return redirect(url_for('delete_student'))
     return render_template('delete_student.html', form=form)
 
 
@@ -92,5 +94,6 @@ def add_student():
                                           form.gender.data, form.id_number.data, form.course.data)
             return redirect(url_for('students'))
         else:
-            return render_template('aldy_exist.html')
+            flash('ID number already exist in our Master List.')
+            return redirect(url_for('add_student'))
     return render_template('add_student.html', form=form)

@@ -4,6 +4,16 @@
 {% block title %}Delete Student{% endblock %}
 
 {% block page_content %}
+    <div class="container">
+
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+          <button class="close" type="button" data-dismiss="alert">&times;</button>
+          {{ message }}
+        </div>
+      {% endfor %}
+
+    </div>
     <h1 class="text-center">I.D. of the Student to be deleted</h1>
     <form method="POST" class="form form-horizontal" role="form">
         {{ form.hidden_tag() }}

@@ -4,6 +4,17 @@
 {% block title %}Add Student{% endblock %}
 
 {% block page_content %}
+
+    <div class="container">
+
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+          <button class="close" type="button" data-dismiss="alert">&times;</button>
+          {{ message }}
+        </div>
+      {% endfor %}
+
+    </div>
     <h1 class="text-center">Fill up the Form</h1>
 
     <form method="POST" class="form form-horizontal" role="form">
