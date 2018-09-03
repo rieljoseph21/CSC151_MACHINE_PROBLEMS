@@ -38,6 +38,3 @@ class Student_Profile():
                 if id_number == row[3]:
                     return True
         return False
-
-
-print(Student_Profile().student_exist('2014-3212'))

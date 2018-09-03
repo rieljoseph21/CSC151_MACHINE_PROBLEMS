@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Regexp, ValidationError
+from wtforms.validators import DataRequired, Regexp, ValidationError, AnyOf
 
 import csv
 
@@ -24,8 +24,8 @@ class StudentForm(FlaskForm):
                             Regexp('^[A-Za-z ]{2,30}$', message="Enter a valid First name.")])
     lastname = StringField('Last Name ', validators=[
         Regexp('^[A-Za-z ]{2,15}$', message="Enter a valid Last name.")])
-    gender = SelectField('Gender', choices=[
-                         ('M', 'Male'), ('F', 'Female')], default=None, validators=[DataRequired()])
+    gender = SelectField('Gender', choices=[('', '<--- choose option --->'),
+                                            ('M', 'Male'), ('F', 'Female')], validators=[AnyOf(('M', 'F'), message=u"Please choose your Gender")])
     id_number = StringField('ID Number  ', validators=[Regexp(
         '^[0-9]{4}\-[0-9]{4}$', message="Please enter a valid id number, Example: 2014-1716")])
     course = StringField('Course ', validators=[Regexp(
@@ -35,7 +35,7 @@ class StudentForm(FlaskForm):
 
 class DeleteForm(FlaskForm):
     # Form for deleting student.
-    id_number = StringField('ID Number: ', validators=[Regexp(
+    id_number = StringField('ID Number ', validators=[Regexp(
         '^[0-9]{4}\-[0-9]{4}$', message="Please enter a valid id number, Example: 2014-1716")])
     submit = SubmitField('Delete')
 

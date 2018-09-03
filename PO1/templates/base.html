@@ -2,6 +2,10 @@
 
 {% block title %}Machine Problem{% endblock %}
 
+{% block styles %}
+{{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}" type="text/css">
+{% endblock styles %}
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
@@ -28,5 +32,10 @@
 {% block content %}
 <div class="container">
     {% block page_content %}{% endblock %}
+</div> 
+<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
+    <div class="container">
+        <p class="navbar-text text-center pull-left">© 2018 - Site Built By Riel Joseph</p>
+    </div>
 </div>
 {% endblock %}
