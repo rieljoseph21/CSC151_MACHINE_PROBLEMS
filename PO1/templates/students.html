@@ -8,8 +8,8 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>{{ header[0]|title }}</th>
                 <th>{{ header[1]|title }}</th>
+                <th>{{ header[0]|title }}</th>
                 <th>{{ header[2]|title }}</th>
                 <th>{{ header[3] }}</th>
                 <th>{{ header[4]|title }}</th>
@@ -19,8 +19,8 @@
         <tbody>
             <tr>
                 <th>{{ loop.index }}</th>
-                <th>{{ row[0] }}</th>
-                <th>{{ row[1] }}</th>
+                <th>{{ row[1]|title }}</th>
+                <th>{{ row[0]|title }}</th>
                 <th>{{ row[2] }}</th>
                 <th>{{ row[3] }}</th>
                 <th>{{ row[4] }}</th>
@@ -28,4 +28,10 @@
         </tbody>
         {% endfor %}
     </table>
+    {% if message %}
+        <div class="alert alert-success" role="alert">
+            <h2 class="text-center alert-heading">{{ message }}</h4>
+            <hr>
+        </div>
+    {% endif %}
 {% endblock %}

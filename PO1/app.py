@@ -56,17 +56,20 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/students')
+@app.route('/students', methods=['POST', 'GET'])
 # Students Web Page | Displaying Students
 def students():
     rows = []
+    message = None
     with open('database.csv') as f:
         reader = csv.reader(f)
         header = next(reader)
         for row in reader:
             rows.append(row)
+    if request.method == 'POST':
+        message = "Executed Successfully"
 
-    return render_template('students.html', header=header, rows=rows)
+    return render_template('students.html', header=header, rows=rows, message=message)
 
 
 @app.route('/delete_student', methods=['GET', 'POST'])
@@ -75,12 +78,12 @@ def delete_student():
     form = DeleteForm()
     if request.method == 'POST' and form.validate():
         Student_Profile().delete_student(form.id_number.data)
-        return redirect(url_for('students'))
+        return redirect(url_for('students'), code=307)
     return render_template('delete_student.html', form=form)
 
 
 @app.route('/add_student', methods=['GET', 'POST'])
-# Page for adding studnet
+# Page for adding student
 def add_student():
     form = StudentForm()
     if request.method == 'POST' and form.validate():
