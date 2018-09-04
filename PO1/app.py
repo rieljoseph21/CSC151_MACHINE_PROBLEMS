@@ -60,16 +60,15 @@ def index():
 # Students Web Page | Displaying Students
 def students():
     rows = []
-    message = None
     with open('database.csv') as f:
         reader = csv.reader(f)
         header = next(reader)
         for row in reader:
             rows.append(row)
     if request.method == 'POST':
-        message = "Executed Successfully"
+        flash("Added Successfully.")
 
-    return render_template('students.html', header=header, rows=rows, message=message)
+    return render_template('students.html', header=header, rows=rows)
 
 
 @app.route('/delete_student', methods=['GET', 'POST'])
@@ -77,9 +76,11 @@ def students():
 def delete_student():
     form = DeleteForm()
     if request.method == 'POST' and form.validate():
-        Student_Profile().delete_student(form.id_number.data)
         if Student_Profile().student_exist(form.id_number.data) is False:
             flash('ID number does not exist in the Master List.')
+        else:
+            flash('Deleted Student with ID number: ' + form.id_number.data)
+            Student_Profile().delete_student(form.id_number.data)
         return redirect(url_for('delete_student'))
     return render_template('delete_student.html', form=form)
 
@@ -92,7 +93,7 @@ def add_student():
         if Student_Profile().student_exist(form.id_number.data) is False:
             Student_Profile().add_student(form.firstname.data, form.lastname.data,
                                           form.gender.data, form.id_number.data, form.course.data)
-            return redirect(url_for('students'))
+            return redirect(url_for('students'), 307)
         else:
             flash('ID number already exist in our Master List.')
             return redirect(url_for('add_student'))
