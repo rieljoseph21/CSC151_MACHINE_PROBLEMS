@@ -59,15 +59,8 @@ def index():
 @app.route('/students', methods=['POST', 'GET'])
 # Students Web Page | Displaying Students
 def students():
-    rows = []
-    with open('database.csv') as f:
-        reader = csv.reader(f)
-        header = next(reader)
-        for row in reader:
-            rows.append(row)
-    if request.method == 'POST':
-        flash("Added Successfully.")
-
+    rows = Student_Profile().display_students()
+    header = rows.pop(0)
     return render_template('students.html', header=header, rows=rows)
 
 
