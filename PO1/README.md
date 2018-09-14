@@ -10,7 +10,7 @@ venv/Scripts/activate
 ```
 source venv/bin/activate
 ```
-Run Flask on localhost
-'''
+### Initiate flask
+```
 flask run
-'''
+```
