@@ -1,67 +1,66 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Add Student{% endblock %}
 
 {% block page_content %}
 
-    <div class="container">
+<div class="container">
 
-      {% for message in get_flashed_messages() %}
-        <div class="alert alert-warning">
-          <button class="close" type="button" data-dismiss="alert">&times;</button>
-          <p class="text-danger">{{ message }}</p>
-        </div>
-      {% endfor %}
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-warning">
+    <button class="close" type="button" data-dismiss="alert">&times;</button>
+    <p class="text-danger">{{ message }}</p>
+  </div>
+  {% endfor %}
 
-    </div>
-    
-    <h1 class="text-center">Fill up the Form</h1>
+</div>
 
-    <form method="POST" class="form form-horizontal" role="form">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-        {{ form.lastname.label }} {{ form.lastname(class="form-control", autocorrect="off", autocomplete="off") }}
-        {% if form.lastname.errors %}
-          {% for error in form.lastname.errors %}
-            <p class="text-danger">{{error}}</p>
-          {% endfor %}
-        {% endif %}
-        </div>
-        <div class="form-group">
-        {{ form.firstname.label }} {{ form.firstname(class="form-control", autocorrect="off", autocomplete="off") }}
-        {% if form.firstname.errors %}
-          {% for error in form.firstname.errors %}
-            <p class="text-danger">{{error}}</p>
-          {% endfor %}
-        {% endif %}
-        </div>
-        <div class="form-group">
-        {{ form.gender.label }} {{ form.gender(class="form-control", autocorrect="off", autocomplete="off") }}
-        {% if form.gender.errors %}
-          {% for error in form.gender.errors %}
-            <p class="text-danger">{{error}}</p>
-          {% endfor %}
-        {% endif %}
-        </div>
-        <div class="form-group">
-        {{ form.id_number.label }} {{ form.id_number(class="form-control", autocorrect="off", autocomplete="off") }}
-        {% if form.id_number.errors %}
-          {% for error in form.id_number.errors %}
-            <p class="text-danger">{{error}}</p>
-          {% endfor %}
-        {% endif %}
-        </div>
-        <div class="form-group">
-        {{ form.course.label }} {{ form.course(class="form-control", autocorrect="off", autocomplete="off") }}
-        {% if form.course.errors %}
-          {% for error in form.course.errors %}
-            <p class="text-danger">{{error}}</p>
-          {% endfor %}
-        {% endif %}
-        </div>
-        <div class="form-group">
-        {{ form.submit(class="btn btn-success") }}
-        </div>
-    </form>
+<h1 class="text-center">Fill up the Form</h1>
+
+<form method="POST" class="form form-horizontal" role="form">
+  {{ form.hidden_tag() }}
+  <div class="form-group">
+    {{ form.lastname.label }} {{ form.lastname(class="form-control", autocorrect="off", autocomplete="off") }}
+    {% if form.lastname.errors %}
+    {% for error in form.lastname.errors %}
+    <p class="text-danger">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    {{ form.firstname.label }} {{ form.firstname(class="form-control", autocorrect="off", autocomplete="off") }}
+    {% if form.firstname.errors %}
+    {% for error in form.firstname.errors %}
+    <p class="text-danger">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    {{ form.gender.label }} {{ form.gender(class="form-control", autocorrect="off", autocomplete="off") }}
+    {% if form.gender.errors %}
+    {% for error in form.gender.errors %}
+    <p class="text-danger">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    {{ form.id_number.label }} {{ form.id_number(class="form-control", autocorrect="off", autocomplete="off") }}
+    {% if form.id_number.errors %}
+    {% for error in form.id_number.errors %}
+    <p class="text-danger">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    {{ form.course.label }} {{ form.course(class="form-control", autocorrect="off", autocomplete="off") }}
+    {% if form.course.errors %}
+    {% for error in form.course.errors %}
+    <p class="text-danger">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    {{ form.submit(class="btn btn-success") }}
+  </div>
+</form>
 {% endblock %}
