@@ -66,7 +66,7 @@ class Students(object):
     def search(category, search):
         cur = mysql.connection.cursor()
 
-        sql = "SELECT * FROM students WHERE %s LIKE '%s'" % (
+        sql = "SELECT * FROM students WHERE {} LIKE '{}%'".format(
             category, search)
         cur.execute(sql)
         result = cur.fetchall()

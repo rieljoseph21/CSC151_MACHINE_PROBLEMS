@@ -18,8 +18,8 @@ def add_student():
                            form.gender.data, form.id_number.data, form.course.data)
         if student.exist() is False:
             student.add()
-            flash("Student Added Successfully with ID number '%s'" %
-                  form.id_number.data)
+            flash("Student Added Successfully with ID number '{}'".format(
+                form.id_number.data))
             return redirect(url_for('students'))
         else:
             flash("Student Already Exist!")
@@ -35,7 +35,7 @@ def students():
         filteredStudents = Students.search(form.choice.data, form.search.data)
         students = filteredStudents
         if filteredStudents is False:
-            flash('Search Error! "%s" does not exist on our list' % (
+            flash('Search Error! "{}" does not exist on our list or you have the wrong category'.format(
                 form.search.data))
             return redirect(url_for('students'))
         return render_template('display_students.html', form=form, filtered=students, students="")
@@ -50,10 +50,15 @@ def edit_student(student_id):
     db = Students(idNum=student_id)
     student = db.search('idNum', student_id)
     if request.method == 'POST' and form.validate():
-        db.update(form.firstname.data, form.lastname.data,
-                  form.gender.data, form.id_number.data, form.course.data)
-        flash('Successfully Edited Student')
-        return redirect(url_for('students'))
+        newId = Students(idNum=form.id_number.data)
+        if(newId.exist()):
+            flash('ID number already taken please choose another ID NUMBER')
+            return redirect(url_for('edit_student', student_id=db.idNum))
+        else:
+            db.update(form.firstname.data, form.lastname.data,
+                      form.gender.data, form.id_number.data, form.course.data)
+            flash('Successfully Edited Student')
+            return redirect(url_for('students'))
     else:
         for attribute in student:
             form.firstname.data = attribute[0]
@@ -71,8 +76,7 @@ def delete_student():
         student = Students(idNum=form.id_number.data)
         if student.exist():
             student.delete()
-            flash("Deleted student with id number '%s'" %
-                  form.id_number.data)
+            flash("Deleted student with id number '{}'".format(form.id_number.data))
             return redirect(url_for('students'))
         else:
             flash("Student Does not exist.")
