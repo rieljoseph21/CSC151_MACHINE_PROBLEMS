@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Regexp, ValidationError, AnyOf
+from wtforms import StringField, SubmitField, SelectField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Regexp, ValidationError, AnyOf, EqualTo, Email
+
+from app import mysql
 
 
 class StudentForm(FlaskForm):
@@ -37,3 +39,65 @@ class SearchForm(FlaskForm):
                                                ('gender', 'Gender')
                                                ], validators=[AnyOf(('firstName', 'lastName', 'idNum', 'course', 'gender'), message=u'Select Category to search.')])
     submit = SubmitField('Search')
+
+
+class RegistrationForm(FlaskForm):
+    username = StringField(
+        'Username',
+        validators=[
+            DataRequired()
+        ]
+    )
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired()
+        ]
+    )
+    reset_password = PasswordField(
+        'Repeat Password',
+        validators=[
+            DataRequired(),
+            EqualTo('password')
+        ]
+    )
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(),
+            Email()
+        ]
+    )
+    submit = SubmitField(
+        'Register'
+    )
+
+    def validate_username(self, username):
+        cur = mysql.connection.cursor()
+        sql = "SELECT * FROM users where username = '{}'".format(username.data)
+        cur.execute()
+        user = cur.fetchall()
+        cur.close()
+        if user is not None:
+            raise ValidationError("Please use a different Username")
+
+
+class LoginForm(FlaskForm):
+    username = StringField(
+        'Username',
+        validators=[
+            DataRequired()
+        ]
+    )
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired()
+        ]
+    )
+    remember_me = BooleanField(
+        'Remember me'
+    )
+    submit = SubmitField(
+        'Sign In'
+    )

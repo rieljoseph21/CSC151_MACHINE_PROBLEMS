@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Add Course{% endblock %}
+
+{% block page_content %}
+
+<h1 class="text-center">Fill up the Form</h1>
+
+<form method="POST" class="form form-horizontal" role="form">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.course_title.label }} {{ form.course_title(class="form-control", autocorrect="off", autocomplete="off")
+        }}
+        {% if form.course_title.errors %}
+        {% for error in form.course_title.errors %}
+        <p class="text-danger">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.course_name.label }} {{ form.course_name(class="form-control", autocorrect="off", autocomplete="off")
+        }}
+        {% if form.course_name.errors %}
+        {% for error in form.course_name.errors %}
+        <p class="text-danger">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.submit(class="btn mb-5 btn-success") }}
+    </div>
+    <div class="mb-5"></div>
+</form>
+{% endblock %}

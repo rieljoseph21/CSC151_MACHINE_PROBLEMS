@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+    <form action="" method="POST" class="form form-horizontal">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.lastname.label }}
+            {{ form.lastname(class='form-control', autocorrect='off', autocomplete='off') }}
+            {% if form.lastname.errors %}
+                {% for error in form.lastname.errors %}
+                    <p class="text-danget">{{ errors }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.firstname.label }}
+            {{ form.firstname(class='form-control', autocorrect='off', autocomplete='off') }}
+            {% if form.firstname.errors %}
+                {% for error in form.firstname.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.gender.label }}
+            {{ form.gender(class='form-control') }}
+            {% if form.gender.errors %}
+                {% for error in form.gender.errors %}
+                <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.id_number.label }}
+            {{ form.id_number(class='form-control', autocomplete='off', autocorrect='off') }}
+            {% if form.id_number.errors %}
+                {% for error in form.id_number.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.course.label }}
+            {{ form.course(class='form-control', autocomplete='off', autocorrect='off') }}
+            {% if form.course.errors %}
+                {% for error in form.course.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class='btn btn-success') }}
+        </div>
+    </form>
+{% endblock page_content %}

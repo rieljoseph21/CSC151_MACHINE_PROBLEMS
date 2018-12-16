@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+	<thead>
+	<tr>ID</tr>
+	<tr>Username</tr>
+	<tr>Password</tr>
+	<tr>Email</tr>
+	</thead>
+	<tbody>
+		{% for user in data %}
+		<tr>
+			<td>{{user[0]}}</td>
+			<td>{{user[1]}}</td>
+			<td>{{user[2]}}</td>
+			<td>{{user[3]}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+</body>
+</html>

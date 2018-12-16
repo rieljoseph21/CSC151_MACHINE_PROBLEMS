@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/register" method="POST">
+		{{form.hidden_tag()}}
+		{{form.username.label}}: {{form.username}}<BR>
+		{{form.password.label}}: {{form.password}}<BR>
+		{{form.email.label}}: {{form.email}}<BR>
+		{{form.submit}}
+	</form>
+	
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+    <form action="" method="POST" class="form form-horizontal">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.id_number.label }}
+            {{ form.id_number(class='form-control', autocorrect='off', autocomplete='off') }}
+            {% if form.id_number.errors %}
+                {% for error in form.id_number.errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+        <div class="form-group">
+            {{ form.submit(class='btn btn-danger') }}
+        </div>
+    </form>
+{% endblock page_content %}

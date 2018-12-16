@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+<h1 class="text-center">Course List</h1>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Course Abbreviation</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {% if courses %}
+
+    {% for row in courses %}
+    <tbody>
+        <tr>
+            <th>{{ row[2] }}</th>
+            <th>{{ row[0] }}</th>
+            <th>
+                <a href="{{ url_for('delete_course', id = row[1])}}">
+                    <span class="fas fa-trash text-danger"> Delete</span>
+                </a>
+            </th>
+        </tr>
+    </tbody>
+    {% endfor %}
+
+    {% endif %}
+
+</table>
+{% endblock page_content %}

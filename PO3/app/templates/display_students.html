@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+
+{% block page_content %}
+
+{% if students %}
+<h1 class="text-center">Student List</h1>
+{% else %}
+<h1 class="text-center">Search Result</h1>
+{% endif %}
+
+{% if form.choice.errors %}
+{% for error in form.choice.errors %}
+<p class="text-danger text-center">{{error}}</p>
+{% endfor %}
+{% endif %}
+<div class="center_div">
+    <form method="POST" class="form-inline text-center" role="form">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.choice(class="form-control", autocorrect="off", autocomplete="off") }}
+        </div>
+        <div class="form-group">
+            {{ form.search(class="form-control ", autocorrect="off", autocomplete="off", placeholder="Search") }}
+            {% if form.search.errors %}
+            {% for error in form.search.errors %}
+            <p class="text-danger">{{error}}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-success form-control") }}
+        </div>
+    </form>
+</div>
+{% if students or filtered %}
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>ID #</th>
+            <th>Course</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    {% else %}
+    <h2 class="text-center mt-5">Search Not Found for '<span class="text-danger">{{form.search.data}}</span>'!</h2>
+    {% endif %}
+    {% if students %}
+
+    {% for row in students %}
+    <tbody>
+        <tr>
+            <th>{{ row[0] }}</th>
+            <th>{{ row[1] }}</th>
+            <th>{{ row[2] }}</th>
+            <th>{{ row[3] }}</th>
+            <th>
+
+                {% if row[4] %}
+                {{ row[4] }}
+                {% else %}
+                Update Course Immediately!
+                {% endif %}
+            </th>
+            <th><a href="{{ url_for('edit_student', student_id = row[3])}}">
+                    <span class="fas fa-user-edit"></span> Edit
+                </a>
+            </th>
+            <th>
+                <a href="{{ url_for('delete', student_id = row[3])}}">
+                    <span class="fas fa-trash text-danger"> Delete</span>
+                </a>
+            </th>
+        </tr>
+    </tbody>
+    {% endfor %}
+
+    {% endif %}
+
+
+    {% if filtered %}
+
+
+    {% for row in filtered %}
+    <tbody>
+        <tr>
+            <th>{{ row[0] }}</th>
+            <th>{{ row[1] }}</th>
+            <th>{{ row[2] }}</th>
+            <th>{{ row[3] }}</th>
+            <th>{{ row[4] }}</th>
+            <th><a href="{{ url_for('edit_student', student_id = row[3])}}">
+                    <span class="fas fa-user-edit"> Edit</span>
+                </a>
+            </th>
+            <th>
+                <a class="text-danger" href="{{ url_for('delete', student_id = row[3])}}">
+                    <span class="fas fa-trash"> Delete</span>
+                </a>
+            </th>
+        </tr>
+    </tbody>
+    {% endfor %}
+
+    {% endif %}
+
+
+</table>
+{% endblock page_content %}

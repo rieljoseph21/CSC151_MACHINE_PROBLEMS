@@ -1,0 +1,70 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block title %}
+
+{% if title %}
+    PO1_v0.2 - {{ title }}
+{% else %}
+    PO1-V0.2
+{% endif %}
+
+{% endblock title %}
+
+
+
+{% block navbar %}
+<nav class="nav navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="{{ url_for('index') }}" class="navbar-brand">MOYMOY</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Add Student</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Delete Student</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Master List</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock navbar %}
+
+
+
+{% block content %}
+
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button class="close" type="button" data-dismiss="alert">&times;</button>
+            <p class="text-danger">{{ message }}</p>
+        </div>
+    {% endfor %}
+
+    <div class="container" style="padding-bottom: 50px;">
+        {% block page_content %}
+
+        {% endblock page_content %}
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <p class="navbar-text text-center pull-left">&copy; 2018 - site Built by Riel Joseph</p>
+        </div>
+    </div>
+{% endblock content %}
